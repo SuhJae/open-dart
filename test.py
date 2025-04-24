@@ -4,7 +4,9 @@ import sys
 
 from endpoint import get_structured_financials
 
-API_KEY = ""
+with open("key.json") as f:
+    API_KEY = json.load(f)["DART_KEY"]
+
 TICKERS = ["089590", "005930", "067280", "000660", "005380"]
 
 

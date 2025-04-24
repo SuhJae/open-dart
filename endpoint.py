@@ -231,8 +231,11 @@ def get_structured_financials(stock_code: str, api_key: str) -> Dict[str, Any]:
 if __name__ == "__main__":
     import json
 
+    with open("key.json") as f:
+        API_KEY = json.load(f)["DART_KEY"]
+
     data = get_structured_financials(
         "089590",  # 제주항공
-        "",
+        API_KEY,
     )
     print(json.dumps(data, indent=2, ensure_ascii=False))
