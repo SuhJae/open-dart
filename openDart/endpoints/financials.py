@@ -6,7 +6,6 @@ from . import BaseModel, BaseAPI
 
 
 @dataclass
-@dataclass
 class FinancialValue:
     report_date: datetime  # Used for BS
     amount: float
@@ -124,6 +123,9 @@ class FinanciasAPI(BaseAPI):
         3: '11014',  # Q3
         4: '11011',  # Annual
     }
+
+    def __init__(self, api_key: str, *, client=None, async_client=None):
+        super().__init__(api_key, client=client, async_client=async_client)
 
     def get_financials(self, corp_id: str, fiscal_year: int = 2015, quarter: int = 1) -> Dict[
         str, CompanyFinancialReport]:

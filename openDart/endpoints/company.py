@@ -54,6 +54,9 @@ class CompanySummary(BaseModel):
 class CompanyAPI(BaseAPI):
     BASE_URL = "https://opendart.fss.or.kr/api/company.json"
 
+    def __init__(self, api_key: str, *, client=None, async_client=None):
+        super().__init__(api_key, client=client, async_client=async_client)
+
     def get_company_summary(self, corp_id: str) -> CompanySummary:
         params = {
             "corp_code": corp_id
