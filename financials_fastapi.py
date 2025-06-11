@@ -1,17 +1,5 @@
 from __future__ import annotations
 
-"""
-FastAPI service exposing a single endpoint:
-
-    GET /financials/{stock_code}
-
-Run with:
-
-    uvicorn financials_fastapi:app --reload --port 8000
-
-The DART API key is loaded once at start-up from `key.json` (same folder).
-"""
-
 import json
 from pathlib import Path
 from typing import Any, Dict
@@ -20,9 +8,8 @@ from fastapi import FastAPI, HTTPException, Path as P
 from fastapi.middleware.cors import CORSMiddleware
 from fastapi.responses import JSONResponse
 
-from openDart.client import OpenDartClient
 from endpoint import StructuredFinancialsService
-
+from openDart.client import OpenDartClient
 
 # ─────────────────────────────────────────────────────────────────────────────
 # Load API key
@@ -35,7 +22,6 @@ if not API_KEY_PATH.exists():
     )
 
 API_KEY: str = json.loads(API_KEY_PATH.read_text())["DART_KEY"]
-
 
 # ─────────────────────────────────────────────────────────────────────────────
 # Application & CORS
@@ -86,11 +72,11 @@ async def _shutdown() -> None:
     summary="Get structured financials",
 )
 async def get_financials(
-    stock_code: str = P(
-        ...,
-        regex=r"^\d{6}$",
-        description="6-digit KRX stock code",
-    )
+        stock_code: str = P(
+            ...,
+            regex=r"^\d{6}$",
+            description="6-digit KRX stock code",
+        )
 ) -> Dict[str, Any]:
     """
     Return the structured financial statements for *stock_code*.
